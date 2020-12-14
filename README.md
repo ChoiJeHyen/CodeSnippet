@@ -55,7 +55,7 @@ public class 싱글턴클레스명 : ScriptableObjInstance<싱글턴클레스명
 }
 ```
 
-#Unity ButtonAttribute
+# Unity ButtonAttribute
 모노비헤이비어 컴포넌트의 특정함수를 인스펙터에서 바로 실행시키고 싶을때 사용
 ```c#
 using System;
