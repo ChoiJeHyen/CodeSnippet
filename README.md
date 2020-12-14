@@ -48,3 +48,9 @@ public class ScriptableObjInstance<T> : ScriptableObject where T : ScriptableObj
 	}
 }
 ```
+## 사용성
+```c#
+public class 싱글턴클레스명 : ScriptableObjInstance<싱글턴클레스명>
+{
+}
+```
