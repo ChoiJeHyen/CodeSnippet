@@ -48,9 +48,75 @@ public class ScriptableObjInstance<T> : ScriptableObject where T : ScriptableObj
 	}
 }
 ```
-## 사용성
+사용성
 ```c#
 public class 싱글턴클레스명 : ScriptableObjInstance<싱글턴클레스명>
 {
 }
 ```
+
+#Unity ButtonAttribute
+모노비헤이비어 컴포넌트의 특정함수를 인스펙터에서 바로 실행시키고 싶을때 사용
+```c#
+using System;
+using System.Linq;
+using UnityEngine;
+
+[AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
+public class ButtonAttribute : Attribute
+{
+	public string Name;
+	public ButtonAttribute()
+	{
+	}
+}
+
+#if UNITY_EDITOR
+	namespace Internal
+	{
+		using UnityEditor;
+		using System.Reflection;
+
+		[CanEditMultipleObjects]
+		[CustomEditor(typeof(UnityEngine.Object), true)]
+		public class ButtonAttributeDrawer : Editor
+		{
+			public override void OnInspectorGUI()
+			{
+				base.OnInspectorGUI();
+				var methods = this.target.GetType()
+					.GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
+					.Where(m => m.GetParameters().Length == 0);
+				foreach (var methodInfo in methods)
+				{
+					var b = Attribute.GetCustomAttribute(methodInfo, typeof(ButtonAttribute));
+					if (b != null)
+					{
+						if (GUILayout.Button(methodInfo.Name))
+						{
+							foreach (var t in this.targets)
+							{
+								methodInfo.Invoke(t,null);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+#endif
+```
+
+사용성
+```c#
+using UnityEngine;
+
+public class TestScript : MonoBehaviour
+{
+    [Button]
+    public void TestButton(){
+    
+    }
+}
+```
+
