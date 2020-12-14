@@ -1,5 +1,4 @@
 # CodeSnippet
-여러 프로젝트에 재사용 가능한 코드들 정리용도로 만든 곳.
 
 # ScriptableObject Singleton pattern
 Unity ScriptableObject를 활용하여 asset Instance를 만들어 싱글톤처럼 사용하는 기법.
