@@ -4,7 +4,7 @@
 # ScriptableObject Singleton pattern
 Unity ScriptableObject를 활용하여 asset Instance를 만들어 싱글톤처럼 사용하는 기법.
 
-''' c#
+``` c#
 using UnityEngine;
 
 public class ScriptableObjInstance<T> : ScriptableObject where T : ScriptableObject
@@ -47,4 +47,4 @@ public class ScriptableObjInstance<T> : ScriptableObject where T : ScriptableObj
 		}
 	}
 }
-'''
+```
